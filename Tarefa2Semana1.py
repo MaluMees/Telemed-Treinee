@@ -10,7 +10,11 @@ Original file is located at
 import torch
 
 def funcao_mse(valor_real, valor_previsto):
-  return(torch.mean(torch.square(valor_previsto - valor_real)))
+
+  #adicionei suporte a batches, alinhando os tensores para qualquer numero de dimensões (mesmo que no exmplo que eu dei ja esteja alinhado)
+  valor_real_ajustado = valor_real.reshape(valor_previsto.shape)
+
+  return(torch.mean(torch.square(valor_previsto - valor_real_ajustado)))
 
 
 y_real = torch.tensor([1.0, 2.0, 3.0])
